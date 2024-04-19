@@ -1,3 +1,5 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -7,4 +9,29 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      resources :activity
+      resources :activity_types
+      resources :images
+      resources :meals
+      resources :meal_components
+      resources :measurements
+      resources :measurement_categories
+      resources :measurement_values
+      resources :protocols
+      resources :users do
+        member do
+          get 'send_email_verification'
+          get 'verify_email'
+          get 'send_phone_number_verification'
+          get 'verify_phone_number'
+        end
+      end
+    end
+  end
+
+  mount_devise_token_auth_for 'User', at: '/api/v1/auth'
+  mount Resque::Server.new, :at => '/resque'
 end
