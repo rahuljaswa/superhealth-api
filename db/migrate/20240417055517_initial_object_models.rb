@@ -18,8 +18,16 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
+    create_table :activity_type_categories do |t|
+      t.string :name
+      
+      t.timestamps
+    end
+
     create_table :activity_types do |t|
       t.string :name
+      # ACTIVITY_TYPE belongs_to ACTIVITY_TYPE_CATEGORY
+      t.belongs_to :activity_type_category, index: true
       
       t.timestamps
     end
@@ -92,13 +100,11 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     end
 
     create_table :measurements do |t|
-      # MEASUREMENTS belongs_to MEASUREMENT_CATEGORIES
-      t.belongs_to :measurement_category, index: true
-      # MEASUREMENTS belongs_to USERS
+      # MEASUREMENTS belongs_to MEASUREMENT_TYPES
+      t.belongs_to :measurement_type, index: true
+      # MEASUREMENT_VALUES belongs_to USERS
       t.belongs_to :user, index: true
-
-      t.string :name
-      t.string :description
+      
       t.float :latest_value
       t.float :average_7_days
       t.float :average_30_days
@@ -113,7 +119,17 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
-    create_table :measurement_categories do |t|
+    create_table :measurement_types do |t|
+      # MEASUREMENT_TYPES belongs_to MEASUREMENT_TYPE_CATEGORIES
+      t.belongs_to :measurement_type_category, index: true
+
+      t.string :name
+      t.string :description
+
+      t.timestamps
+    end
+
+    create_table :measurement_type_categories do |t|
       t.string :name
       t.string :description
 
@@ -123,8 +139,6 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     create_table :measurement_values do |t|
       # MEASUREMENT_VALUES belongs_to MEASUREMENT
       t.belongs_to :measurement, index: true
-      # MEASUREMENT_VALUES belongs_to USERS
-      t.belongs_to :user, index: true
 
       t.float :amount
       t.string :units

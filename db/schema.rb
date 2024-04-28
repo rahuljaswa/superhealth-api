@@ -31,10 +31,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
-  create_table "activity_types", force: :cascade do |t|
+  create_table "activity_type_categories", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "activity_types", force: :cascade do |t|
+    t.string "name"
+    t.bigint "activity_type_category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity_type_category_id"], name: "index_activity_types_on_activity_type_category_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -115,16 +123,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.index ["user_id"], name: "index_meals_users_on_user_id"
   end
 
-  create_table "measurement_categories", force: :cascade do |t|
+  create_table "measurement_type_categories", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "measurement_types", force: :cascade do |t|
+    t.bigint "measurement_type_category_id"
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["measurement_type_category_id"], name: "index_measurement_types_on_measurement_type_category_id"
+  end
+
   create_table "measurement_values", force: :cascade do |t|
     t.bigint "measurement_id"
-    t.bigint "user_id"
     t.float "amount"
     t.string "units"
     t.string "description"
@@ -136,7 +152,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["measurement_id"], name: "index_measurement_values_on_measurement_id"
-    t.index ["user_id"], name: "index_measurement_values_on_user_id"
   end
 
   create_table "measurement_values_measurements", id: false, force: :cascade do |t|
@@ -147,10 +162,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
   end
 
   create_table "measurements", force: :cascade do |t|
-    t.bigint "measurement_category_id"
+    t.bigint "measurement_type_id"
     t.bigint "user_id"
-    t.string "name"
-    t.string "description"
     t.float "latest_value"
     t.float "average_7_days"
     t.float "average_30_days"
@@ -163,7 +176,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.float "percent_change_90_days"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["measurement_category_id"], name: "index_measurements_on_measurement_category_id"
+    t.index ["measurement_type_id"], name: "index_measurements_on_measurement_type_id"
     t.index ["user_id"], name: "index_measurements_on_user_id"
   end
 

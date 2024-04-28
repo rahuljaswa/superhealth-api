@@ -18,6 +18,7 @@ gem 'devise'
 gem 'devise_token_auth', '>= 1.2.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+# gem 'faker'
 gem "image_processing", "~> 1.2"
 gem 'resque-pool'
 gem 'kaminari'

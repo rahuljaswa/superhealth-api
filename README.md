@@ -67,7 +67,7 @@ Resque.workers.each {|w| w.unregister_worker}
 - Cardio: Daily Steps, Daily Miles, Resting Heart Rate, HRV, Heart Rate Recovery, Walking Heart Rate Average, VO2 Max, Heart Rate Zone 1, Heart Rate Zone 2, Heart Rate Zone 3, Heart Rate Zone 4, Heart Rate Zone 5
 - Mobility: Daily Stand Time
 - Body Composition: Weight, Body Fat Percentage, Lean Body Mass
-- Biomarker: Fasting Blood Glucose, LDL, VLDL, HDL, Lp(a), ApoB, ALT, A1C
+- Medical: Fasting Blood Glucose, LDL, VLDL, HDL, Lp(a), ApoB, ALT, A1C
 - Sleep: Daily Total Sleep, Daily Deep Sleep, Daily REM Sleep, Daily Awake Time
 - Mental Health: Daily Stress
 

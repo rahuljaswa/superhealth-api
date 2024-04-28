@@ -12,14 +12,17 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :activity
+      resources :activities
       resources :activity_types
+      resources :activity_type_categories
       resources :images
-      resources :meals
       resources :meal_components
+      resources :meals
       resources :measurements
-      resources :measurement_categories
+      resources :measurement_type_categories
+      resources :measurement_types
       resources :measurement_values
+      resources :protocol_actions
       resources :protocols
       resources :users do
         member do
