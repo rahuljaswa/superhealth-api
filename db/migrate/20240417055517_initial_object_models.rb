@@ -15,19 +15,21 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.integer :minimum_zone_five_heart_rate
       t.datetime :start_time
 
+      t.string :client_uuid, index: { unique: true }
+
       t.timestamps
     end
 
     create_table :activity_type_categories do |t|
-      t.string :name
+      t.string :name, index: { unique: true }
       
       t.timestamps
     end
 
     create_table :activity_types do |t|
-      t.string :name
+      t.string :name, index: { unique: true }
       # ACTIVITY_TYPE belongs_to ACTIVITY_TYPE_CATEGORY
-      t.belongs_to :activity_type_category, index: true
+      t.belongs_to :activity_type_category
       
       t.timestamps
     end

@@ -25,9 +25,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.integer "minimum_zone_four_heart_rate"
     t.integer "minimum_zone_five_heart_rate"
     t.datetime "start_time"
+    t.string "client_uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_type_id"], name: "index_activities_on_activity_type_id"
+    t.index ["client_uuid"], name: "index_activities_on_client_uuid", unique: true
     t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
@@ -35,6 +37,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_activity_type_categories_on_name", unique: true
   end
 
   create_table "activity_types", force: :cascade do |t|
@@ -43,6 +46,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["activity_type_category_id"], name: "index_activity_types_on_activity_type_category_id"
+    t.index ["name"], name: "index_activity_types_on_name", unique: true
   end
 
   create_table "images", force: :cascade do |t|

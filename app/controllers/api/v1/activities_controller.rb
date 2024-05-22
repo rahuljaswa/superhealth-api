@@ -1,3 +1,5 @@
+require 'debug'
+
 module Api
     module V1
         class ActivitiesController < ApplicationController
@@ -21,6 +23,11 @@ module Api
 
             def destroy
                 render :json => { :errors => [ERROR_MESSAGE_FORBIDDEN] }, :status => :forbidden
+            end
+
+            def synchronize
+                activities_to_synchronize = params[:data]
+                Activity.synchronize(activities_to_synchronize)
             end
 
 
