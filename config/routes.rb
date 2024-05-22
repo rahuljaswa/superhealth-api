@@ -1,4 +1,8 @@
-require 'resque/server'
+require 'sidekiq/web'
+
+# Configure Sidekiq-specific session middleware
+Sidekiq::Web.use ActionDispatch::Cookies
+Sidekiq::Web.use ActionDispatch::Session::CookieStore, key: "_interslice_session"
 
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -40,5 +44,6 @@ Rails.application.routes.draw do
   end
 
   mount_devise_token_auth_for 'User', at: '/api/v1/auth'
-  mount Resque::Server.new, :at => '/resque'
+
+  mount Sidekiq::Web => '/sidekiq'
 end

@@ -6,7 +6,7 @@ module Api
             # before_action :set_object, only: [:show, :update, :destroy]
 
             def index
-                render json: Paginator.paginated_response(params, Activity.all.order(id: :asc), ["images"])
+                render json: Paginator.paginated_response(params, Activity.all.order(end_time: :desc), ["images"])
             end
 
             def show
@@ -27,7 +27,7 @@ module Api
 
             def synchronize
                 activities_to_synchronize = params[:data]
-                Activity.synchronize(activities_to_synchronize)
+                ActivitySynchronizationJob.perform_async(activities_to_synchronize.to_json)
             end
 
 

@@ -44,7 +44,7 @@ module SuperhealthApi
     config.eager_load_paths += %W(#{config.root}/lib)
     config.eager_load_paths += Dir["#{config.root}/lib/**/"]
 
-    config.active_job.queue_adapter = :resque
+    config.active_job.queue_adapter = :sidekiq
 
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')

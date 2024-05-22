@@ -1,2 +1,0 @@
----
-fetch_queue: <%= WORKER_CONCURRENCY %>

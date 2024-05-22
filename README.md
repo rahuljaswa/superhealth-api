@@ -1,19 +1,20 @@
+
+
+
+
+
+
+
+
 # README
 
 ## SETUP
 
-### SETTING UP RESQUE WORKERS
+### SETTING UP SIDEKIQ WORKERS
 
 * Install Redis Cloud on Heroku
 * Start Redis: redis-server
-* Start Workers: rake resque:work QUEUE=*
-
-
-### CLEARING WORKERS
-
-```
-Resque.workers.each {|w| w.unregister_worker}
-```
+* Start Workers: bundle exec sideqik
 
 ### DATA MODEL
 

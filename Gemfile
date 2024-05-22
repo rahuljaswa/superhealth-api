@@ -18,16 +18,13 @@ gem 'devise'
 gem 'devise_token_auth', '>= 1.2.0', git: "https://github.com/lynndylanhurley/devise_token_auth"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-# gem 'faker'
 gem "image_processing", "~> 1.2"
-gem 'resque-pool'
 gem 'kaminari'
 gem 'omniauth'
 gem 'phony'
 gem "rack-cors", :require => 'rack/cors'
-gem "redis", ">= 4.0.1"
-gem 'resque'
 gem 'public_suffix'
+gem 'sidekiq'
 gem 'sinatra', :github => 'sinatra/sinatra'
 gem 'typhoeus'
 gem "tzinfo-data", platforms: %i[ windows jruby ]
