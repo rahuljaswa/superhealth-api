@@ -25,11 +25,6 @@ module Api
                 render :json => { :errors => [ERROR_MESSAGE_FORBIDDEN] }, :status => :forbidden
             end
 
-            def synchronize
-                activities_to_synchronize = params[:data]
-                ActivitySynchronizationJob.perform_async(activities_to_synchronize.to_json)
-            end
-
 
             private
 

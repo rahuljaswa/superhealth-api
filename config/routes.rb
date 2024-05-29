@@ -16,11 +16,9 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      resources :activities do
-        collection do
-          post "synchronize"
-        end
-      end
+      post "/sync", to: "sync#all" 
+
+      resources :activities
       resources :activity_types
       resources :activity_type_categories
       resources :images
