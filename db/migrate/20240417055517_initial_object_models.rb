@@ -102,21 +102,18 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     end
 
     create_table :measurements do |t|
-      # MEASUREMENTS belongs_to MEASUREMENT_TYPES
+      # MEASUREMENT belongs_to MEASUREMENT_TYPES
       t.belongs_to :measurement_type, index: true
-      # MEASUREMENT_VALUES belongs_to USERS
+      # MEASUREMENT belongs_to USERS
       t.belongs_to :user, index: true
-      
-      t.float :latest_value
-      t.float :average_7_days
-      t.float :average_30_days
-      t.float :average_90_days
-      t.float :change_7_days
-      t.float :change_30_days
-      t.float :change_90_days
-      t.float :percent_change_7_days
-      t.float :percent_change_30_days
-      t.float :percent_change_90_days
+
+      t.float :amount
+      t.string :units
+      t.integer :calculation_type, default: 0
+      t.datetime :start_time
+      t.datetime :end_time
+      t.string :source
+      t.float :quality
 
       t.timestamps
     end
@@ -124,7 +121,7 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     create_table :measurement_types do |t|
       # MEASUREMENT_TYPES belongs_to MEASUREMENT_TYPE_CATEGORIES
       t.belongs_to :measurement_type_category, index: true
-
+      
       t.string :name
       t.string :description
 
@@ -134,22 +131,6 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     create_table :measurement_type_categories do |t|
       t.string :name
       t.string :description
-
-      t.timestamps
-    end
-
-    create_table :measurement_values do |t|
-      # MEASUREMENT_VALUES belongs_to MEASUREMENT
-      t.belongs_to :measurement, index: true
-
-      t.float :amount
-      t.string :units
-      t.string :description
-      t.integer :calculation_type, default: 0
-      t.datetime :start_time
-      t.datetime :end_time
-      t.string :source
-      t.float :quality
 
       t.timestamps
     end
@@ -188,11 +169,22 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.index :user_id
     end
 
-    # MEASUREMENT has_many MEASUREMENT_VALUES
-    # MEASUREMENT_VALUES has_many MEASUREMENTS
-    create_join_table :measurements, :measurement_values do |t|
-      t.index :measurement_value_id
-      t.index :measurement_id
+    # USER has_many MEASUREMENT_TYPES
+    # MEASUREMENT_TYPES has_many USERS
+    create_join_table :users, :measurement_types do |t|
+      t.index :measurement_type_id
+      t.index :user_id
+
+      t.float :latest_value
+      t.float :average_7_days
+      t.float :average_30_days
+      t.float :average_90_days
+      t.float :change_7_days
+      t.float :change_30_days
+      t.float :change_90_days
+      t.float :percent_change_7_days
+      t.float :percent_change_30_days
+      t.float :percent_change_90_days
     end
 
     # USER has_many PROTOCOLS

@@ -143,31 +143,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.index ["measurement_type_category_id"], name: "index_measurement_types_on_measurement_type_category_id"
   end
 
-  create_table "measurement_values", force: :cascade do |t|
-    t.bigint "measurement_id"
-    t.float "amount"
-    t.string "units"
-    t.string "description"
-    t.integer "calculation_type", default: 0
-    t.datetime "start_time"
-    t.datetime "end_time"
-    t.string "source"
-    t.float "quality"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["measurement_id"], name: "index_measurement_values_on_measurement_id"
-  end
-
-  create_table "measurement_values_measurements", id: false, force: :cascade do |t|
-    t.bigint "measurement_id", null: false
-    t.bigint "measurement_value_id", null: false
-    t.index ["measurement_id"], name: "index_measurement_values_measurements_on_measurement_id"
-    t.index ["measurement_value_id"], name: "index_measurement_values_measurements_on_measurement_value_id"
-  end
-
-  create_table "measurements", force: :cascade do |t|
-    t.bigint "measurement_type_id"
-    t.bigint "user_id"
+  create_table "measurement_types_users", id: false, force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "measurement_type_id", null: false
     t.float "latest_value"
     t.float "average_7_days"
     t.float "average_30_days"
@@ -178,6 +156,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.float "percent_change_7_days"
     t.float "percent_change_30_days"
     t.float "percent_change_90_days"
+    t.index ["measurement_type_id"], name: "index_measurement_types_users_on_measurement_type_id"
+    t.index ["user_id"], name: "index_measurement_types_users_on_user_id"
+  end
+
+  create_table "measurements", force: :cascade do |t|
+    t.bigint "measurement_type_id"
+    t.bigint "user_id"
+    t.float "amount"
+    t.string "units"
+    t.integer "calculation_type", default: 0
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string "source"
+    t.float "quality"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["measurement_type_id"], name: "index_measurements_on_measurement_type_id"

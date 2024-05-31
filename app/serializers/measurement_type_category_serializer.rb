@@ -1,5 +1,5 @@
 class MeasurementTypeCategorySerializer < ActiveModel::Serializer
-	attributes :name, :description, :id
+	attributes :name, :description, :id, :measurement_types
 
-	has_many :measurements
+	has_many :measurement_types
 end

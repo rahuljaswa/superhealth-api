@@ -4,7 +4,7 @@ module Api
             before_action :set_object, only: [:show, :update, :destroy]
 
             def index
-                render json: Paginator.paginated_response(params, MeasurementType.all.order(id: :asc))
+                render json: Paginator.paginated_response(params, MeasurementType.all.order(id: :asc), [])
             end
 
             def show
