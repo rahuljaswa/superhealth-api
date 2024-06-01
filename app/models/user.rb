@@ -6,6 +6,7 @@ class User < ApplicationRecord
 	has_many :images
 	has_many :activities
 	has_many :measurements
+	has_many :measurement_type_user_summaries
 
 	has_and_belongs_to_many :meals
 	has_and_belongs_to_many :protocols

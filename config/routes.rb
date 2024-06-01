@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       resources :measurements
       resources :measurement_type_categories
       resources :measurement_types
+      resources :measurement_type_user_summaries
       resources :measurement_values
       resources :protocol_actions
       resources :protocols

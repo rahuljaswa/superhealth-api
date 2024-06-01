@@ -1,7 +1,6 @@
 class CreateUsers < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
-      t.string :username, index: {unique: true}
       t.string :phone_number
       t.string :phone_number_verification_code
       t.datetime :phone_number_verification_code_sent_at

@@ -171,11 +171,12 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.index :user_id
     end
 
-    # USER has_many MEASUREMENT_TYPES
+    # USER has_many MEASUREMENT_SUMMARIES
     # MEASUREMENT_TYPES has_many USERS
-    create_join_table :users, :measurement_types do |t|
+    create_join_table :users, :measurement_types, table_name: :measurement_type_user_summaries do |t|
       t.index :measurement_type_id
       t.index :user_id
+      t.index [:measurement_type_id, :user_id], unique: true
 
       t.float :latest_value
       t.float :average_7_days
@@ -187,6 +188,8 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.float :percent_change_7_days
       t.float :percent_change_30_days
       t.float :percent_change_90_days
+
+      t.timestamps
     end
 
     # USER has_many PROTOCOLS

@@ -1,14 +1,15 @@
 module Api
     module V1
-        class UsersController < ApplicationController
+        class MeasurementTypeUserSummariesController < ApplicationController
             before_action :set_object, only: [:show, :update, :destroy]
 
             def index
-                render json: Paginator.paginated_response(params, User.all.order(id: :asc), ["images"])
+                collection = MeasurementTypeUserSummary.joins(:measurement_type).joins(:user).where("users.id = 1").order("measurement_types.name")
+                render json: Paginator.paginated_response(params, collection, [])
             end
 
             def show
-                render json: @object, include: ["measurement_type_user_summaries"] 
+                render json: @object, include: [""] 
             end
 
             def create
@@ -27,7 +28,7 @@ module Api
             private
 
             def set_object
-                @object = User.find(params[:id])
+                @object = MeasurementTypeUserSummary.find(params[:id])
             end
 
             def object_params
