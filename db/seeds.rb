@@ -44,7 +44,8 @@ activities = {
 		"Traditional Strength Training"
 	],
 	"Studio Activities": [
-		"Dance Inspired Training"
+		"Dance",
+		"Dance Inspired Training",
 		"Barre",
 		"Cardio Dance",
 		"Social Dance",
@@ -99,18 +100,16 @@ activities = {
 	],
 	"Other": [
 		"Other",
-		"Dance",
-		"Dance Inspired Training",
 		"Mixed Metabolic Cardio Training",
 		"Underwater Diving"
 	]
 }
 
 activities.each do |category, types|
-	activity_type_category = ActivityTypeCategory.find_or_create_by!(name: category)
+	activity_type_category = ActivityTypeCategory.find_or_create_by(name: category)
 
 	types.each do |type|
-		ActivityType.find_or_create_by!(name: type, activity_type_category: activity_type_category)
+		ActivityType.find_or_create_by(name: type, activity_type_category: activity_type_category)
 	end
 end
 
@@ -162,9 +161,9 @@ measurements = {
 }
 
 measurements.each do |category, types|
-	measurement_type_category = MeasurementTypeCategory.find_or_create_by!(name: category)
+	measurement_type_category = MeasurementTypeCategory.find_or_create_by(name: category)
 
 	types.each do |type|
-		MeasurementType.find_or_create_by!(name: type, measurement_type_category: measurement_type_category)
+		MeasurementType.find_or_create_by(name: type, measurement_type_category: measurement_type_category)
 	end
 end

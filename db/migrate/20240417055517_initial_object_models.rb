@@ -115,6 +115,8 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.string :source
       t.float :quality
 
+      t.string :client_uuid, index: { unique: true }
+
       t.timestamps
     end
 

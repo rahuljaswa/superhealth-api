@@ -16,6 +16,11 @@
 * Start Redis: redis-server
 * Start Workers: bundle exec sideqik
 
+rake db:drop
+rake db:create
+rake db:migrate
+rake db:seed
+
 ### DATA MODEL
 
 

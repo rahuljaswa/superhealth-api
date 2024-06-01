@@ -170,8 +170,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.datetime "end_time"
     t.string "source"
     t.float "quality"
+    t.string "client_uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["client_uuid"], name: "index_measurements_on_client_uuid", unique: true
     t.index ["measurement_type_id"], name: "index_measurements_on_measurement_type_id"
     t.index ["user_id"], name: "index_measurements_on_user_id"
   end
