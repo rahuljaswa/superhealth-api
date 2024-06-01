@@ -34,6 +34,7 @@ class Measurement < ApplicationRecord
 				measurement.user = user
 
 				measurement_type_user_summary = MeasurementTypeUserSummary.find_or_create_by(user: user, measurement_type: measurement_type)
+				measurement_type_user_summary.update_statistics
 				measurement_type_user_summary.save
 
 				measurement.save

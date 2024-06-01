@@ -134,9 +134,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "measurement_type_user_summaries", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "measurement_type_id", null: false
+  create_table "measurement_type_user_summaries", force: :cascade do |t|
+    t.bigint "measurement_type_id"
+    t.bigint "user_id"
     t.float "latest_value"
     t.float "average_7_days"
     t.float "average_30_days"

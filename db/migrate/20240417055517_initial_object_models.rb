@@ -137,6 +137,28 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
+    # USER has_many MEASUREMENT_SUMMARIES
+    # MEASUREMENT_TYPES has_many USERS
+    create_table :measurement_type_user_summaries do |t|
+      t.belongs_to :measurement_type
+      t.belongs_to :user
+
+      t.float :latest_value
+      t.float :average_7_days
+      t.float :average_30_days
+      t.float :average_90_days
+      t.float :change_7_days
+      t.float :change_30_days
+      t.float :change_90_days
+      t.float :percent_change_7_days
+      t.float :percent_change_30_days
+      t.float :percent_change_90_days
+
+      t.timestamps
+
+      t.index [:measurement_type_id, :user_id], unique: true
+    end
+
     create_table :protocols do |t|
       t.string :name
       t.string :description
@@ -169,27 +191,6 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
     create_join_table :meals, :users do |t|
       t.index :meal_id
       t.index :user_id
-    end
-
-    # USER has_many MEASUREMENT_SUMMARIES
-    # MEASUREMENT_TYPES has_many USERS
-    create_join_table :users, :measurement_types, table_name: :measurement_type_user_summaries do |t|
-      t.index :measurement_type_id
-      t.index :user_id
-      t.index [:measurement_type_id, :user_id], unique: true
-
-      t.float :latest_value
-      t.float :average_7_days
-      t.float :average_30_days
-      t.float :average_90_days
-      t.float :change_7_days
-      t.float :change_30_days
-      t.float :change_90_days
-      t.float :percent_change_7_days
-      t.float :percent_change_30_days
-      t.float :percent_change_90_days
-
-      t.timestamps
     end
 
     # USER has_many PROTOCOLS
