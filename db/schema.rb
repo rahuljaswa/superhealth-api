@@ -158,6 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.bigint "measurement_type_category_id"
     t.string "name"
     t.string "description"
+    t.string "default_units"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["measurement_type_category_id"], name: "index_measurement_types_on_measurement_type_category_id"
@@ -167,7 +168,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_17_055517) do
     t.bigint "measurement_type_id"
     t.bigint "user_id"
     t.float "amount"
-    t.string "units"
     t.integer "calculation_type", default: 0
     t.datetime "start_time"
     t.datetime "end_time"

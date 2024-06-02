@@ -115,55 +115,57 @@ end
 
 measurements = {
 	"Cardiovascular": [
-		"Daily Steps",
-		"Daily Walking Running Distance",
-		"Resting Heart Rate",
-		"Heart Rate Variability",
-		"Heart Rate Recovery",
-		"Walking Heart Rate Average",
-		"VO2 Max",
-		"Peak Expiratory Flow Rate"
-	],
-	"Mobility": [
-		"Daily Stand Time"
-	],
-	"Body Composition": [
-		"Weight",
-		"Body Fat Percentage",
-		"Lean Body Mass",
-		"Height",
-		"Body Mass Index",
-		"Waist Circumference"
-	],
-	"Medical": [
-		"Fasting Blood Glucose",
-		"Respiratory Rate",
-		"Oxygen Saturation",
-		"Blood Pressure Diastolic",
-		"Blood Pressure Systolic",
-		"LDL",
-		"VLDL",
-		"HDL",
-		"Lp(a)",
-		"ApoB",
-		"ALT",
-		"A1C"
-	],
-	"Sleep": [
-		"Daily Total Sleep Time",
-		"Daily Deep Sleep Time",
-		"Daily REM Sleep Time",
-		"Daily Awake Time"
-	],
-	"Mental Health": [
-		"Daily Stress Time"		
-	],
+       { "Daily Steps": "count" },
+       { "Daily Walking Running Distance": "m" },
+       { "Resting Heart Rate": "count/min" },
+       { "Heart Rate Variability": "ms" },
+       { "Heart Rate Recovery": "count/min" },
+       { "Walking Heart Rate Average": "count/min" },
+       { "VO2 Max": "ml/(kg*min)" },
+       { "Peak Expiratory Flow Rate:": "L/min" }
+   ],
+   "Mobility": [
+       { "Daily Stand Time": "min" }
+   ],
+   "Body Composition": [
+       { "Weight": "kg" },
+       { "Body Fat Percentage": "%" },
+       { "Lean Body Mass": "kg" },
+       { "Height": "m" },
+       { "Body Mass Index": "count" },
+       { "Waist Circumference": "m" }
+   ],
+   "Medical": [
+       { "Fasting Blood Glucose": "mg/dL" },
+       { "Respiratory Rate": "count/min" },
+       { "Oxygen Saturation": "%" },
+       { "Blood Pressure Diastolic": "mmHg" },
+       { "Blood Pressure Systolic": "mmHg" },
+       { "LDL": "mg/dL" },
+       { "VLDL": "mg/dL" },
+       { "HDL": "mg/dL" },
+       { "Lp(a)": "mg/dL" },
+       { "ApoB": "mg/dL" },
+       { "ALT": "U/L" },
+       { "A1C": "mg/dL" }
+   ],
+   "Sleep": [
+       { "Daily Total Sleep Time": "min" },
+       { "Daily Deep Sleep Time": "min" },
+       { "Daily REM Sleep Time": "min" },
+       { "Daily Awake Time": "min" }
+   ],
+   "Mental Health": [
+       { "Daily Stress Time": "min" }
+   ]
 }
 
 measurements.each do |category, types|
 	measurement_type_category = MeasurementTypeCategory.find_or_create_by(name: category)
 
 	types.each do |type|
-		MeasurementType.find_or_create_by(name: type, measurement_type_category: measurement_type_category)
+		type.each do |name, default_units|
+			MeasurementType.find_or_create_by(name: name, measurement_type_category: measurement_type_category, default_units: default_units)
+		end
 	end
 end

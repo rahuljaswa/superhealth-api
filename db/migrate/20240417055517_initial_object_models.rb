@@ -108,7 +108,6 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       t.belongs_to :user, index: true
 
       t.float :amount
-      t.string :units
       t.integer :calculation_type, default: 0
       t.datetime :start_time
       t.datetime :end_time
@@ -126,6 +125,7 @@ class InitialObjectModels < ActiveRecord::Migration[7.1]
       
       t.string :name
       t.string :description
+      t.string :default_units
 
       t.timestamps
     end

@@ -5,7 +5,7 @@ module Api
 
             def index
                 collection = MeasurementTypeUserSummary.joins(:measurement_type).joins(:user).where("users.id = 1").order("measurement_types.name")
-                render json: Paginator.paginated_response(params, collection, [])
+                render json: Paginator.paginated_response(params, collection, ["measurement_type.measurement_type_category"])
             end
 
             def show
